@@ -1,14 +1,5 @@
-
-const projectMaker = function(inputName)
-{
-    let projectName = inputName;
-    let tasks = [];
-
-    const getName = ()=>{return projectName}
-    const getTasks = ()=>{return tasks}
-
-    return{getName,getTasks}
-}
+import { dataTaskMaker,projectMaker } from "./objects";
+import { domProjectHandler,domTaskHandler } from "./domhandler";
 
 const taskHandler = (function()
 {
@@ -17,30 +8,33 @@ const taskHandler = (function()
     return{setTask,deleteTask}
 })();
 
-const dataTaskMaker = function(inputName,inputDescription,inputDate,inputPriority)
+
+const programData = (function()
 {
-    let taskName = inputName;
-    let taskDescription = inputDescription;
-    let taskDate = inputDate;
-    let taskPriority = inputPriority
-    let isComplete = false;
+    let currentProject;
+    const setProject = function(project){currentProject = project}
+    const getCurrentProject = function(){return currentProject}
 
-    const getTaskName = ()=>{return taskName}
-    const getTaskDescription = ()=>{return taskDescription}
-    const getTaskDate = ()=>{return taskDate}
-    const getTaskPriority = ()=>{return taskPriority}
-    const isTaskCompleted = ()=>{return isComplete}
+    return{setProject,getCurrentProject}
+})();
+const initialiseApp = function()
+{
+    const btnProject = document.querySelector('.addProjectBtn')
+    const btnTask = document.querySelector('.addTaskBtn')
+    //how we should add the project and the tasks
+    btnProject.addEventListener("click",function()
+    {
+        const project = projectMaker("Jimmy")
+        domProjectHandler.addProject(project)
 
-    return{getTaskName,getTaskDescription,getTaskDate,getTaskPriority,isTaskCompleted}
+    });
+    btnTask.addEventListener("click",function()
+    {
+
+        const task = dataTaskMaker("name","description","Date","High")
+        taskHandler.setTask(task,programData.getCurrentProject().getTasks())
+        domTaskHandler.displayTasks(programData.getCurrentProject())
+
+    });
 }
-
-// const test = projectMaker("Home")
-// const task1 = dataTaskMaker("name1","hello i am fox","12/12/1232","High")
-// const task2 = dataTaskMaker("name2","hello i am fox","12/12/1232","Medium")
-// const task3 = dataTaskMaker("name3","hello i am fox","12/12/1232","Low")
-// taskHandler.setTask(task1,test.getTasks())
-// taskHandler.setTask(task2,test.getTasks())
-// taskHandler.setTask(task3,test.getTasks())
-//  console.log(test.getTasks())
-//  taskHandler.deleteTask(0,test.getTasks())
-//  console.log(test.getTasks())
+initialiseApp()
