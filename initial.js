@@ -38,6 +38,26 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   programData: () => (/* binding */ programData),\n/* harmony export */   taskHandler: () => (/* binding */ taskHandler)\n/* harmony export */ });\n\nconst taskHandler = (function()\n{\n    const setTask = (task,taskArray)=>{taskArray.push(task)}\n    const deleteTask = (taskSpot,taskArray)=>{taskArray.splice(taskSpot,1)}\n    return{setTask,deleteTask}\n})();\n\n\nconst programData = (function()\n{\n    let currentProject;\n    const setProject = function(project){currentProject = project}\n    const getCurrentProject = function(){return currentProject}\n\n    return{setProject,getCurrentProject}\n})();\n\n\n//# sourceURL=webpack://odin-notepad/./src/index.js?");
 
+/***/ }),
+
+/***/ "./src/initial.js":
+/*!************************!*\
+  !*** ./src/initial.js ***!
+  \************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _domhandler__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./domhandler */ \"./src/domhandler.js\");\n/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ \"./src/index.js\");\n/* harmony import */ var _objects__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./objects */ \"./src/objects.js\");\n\n\n\n\nconst addMainProjects = function()\n{\n    const todayProject = (0,_objects__WEBPACK_IMPORTED_MODULE_2__.projectMaker)(\"Today\")\n    const weeklyProject = (0,_objects__WEBPACK_IMPORTED_MODULE_2__.projectMaker)(\"Weekly\")\n    const monthlyProject = (0,_objects__WEBPACK_IMPORTED_MODULE_2__.projectMaker)(\"Monthly\")\n    _domhandler__WEBPACK_IMPORTED_MODULE_0__.domProjectHandler.addProject(todayProject)\n    _domhandler__WEBPACK_IMPORTED_MODULE_0__.domProjectHandler.addProject(weeklyProject)\n    _domhandler__WEBPACK_IMPORTED_MODULE_0__.domProjectHandler.addProject(monthlyProject)\n\n    _index__WEBPACK_IMPORTED_MODULE_1__.programData.setProject(todayProject)\n    makeTask(\"do dishes\",\"date\",\"high\")\n    makeTask(\"do grab trash\",\"date\",\"medium\")\n    makeTask(\"do homework\",\"date\",\"high\")\n    makeTask(\"buy cat food\",\"date\",\"high\")\n    makeTask(\"clean your room\",\"date\",\"low\")\n    makeTask(\"go touch grass\",\"date\",\"low\")\n}\nconst initialiseApp = function()\n{\n\n    const btnProject = document.querySelector('.addProjectBtn')\n    const btnTask = document.querySelector('.addTaskBtn')\n    //how we should add the project and the tasks\n    btnProject.addEventListener(\"click\",function()\n    {\n\n        makeProject()\n\n    });\n    btnTask.addEventListener(\"click\",function()\n    {\n\n        makeTask(\"name\",\"date\",\"high\")\n\n    });\n    \n    \n}\nconst makeTask = function(inputname,inputDate,inputPriority)\n{\n        const task = (0,_objects__WEBPACK_IMPORTED_MODULE_2__.dataTaskMaker)(inputname,'description',inputDate,inputPriority)\n        _index__WEBPACK_IMPORTED_MODULE_1__.taskHandler.setTask(task,_index__WEBPACK_IMPORTED_MODULE_1__.programData.getCurrentProject().getTasks())\n        _domhandler__WEBPACK_IMPORTED_MODULE_0__.domTaskHandler.displayTasks(_index__WEBPACK_IMPORTED_MODULE_1__.programData.getCurrentProject())\n}\nconst makeProject = function(projectName)\n{\n    const project = (0,_objects__WEBPACK_IMPORTED_MODULE_2__.projectMaker)(\"Jimmy\")\n    _domhandler__WEBPACK_IMPORTED_MODULE_0__.domProjectHandler.addProject(project)\n}\naddMainProjects()\ninitialiseApp()\n\n//# sourceURL=webpack://odin-notepad/./src/initial.js?");
+
+/***/ }),
+
+/***/ "./src/objects.js":
+/*!************************!*\
+  !*** ./src/objects.js ***!
+  \************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   dataTaskMaker: () => (/* binding */ dataTaskMaker),\n/* harmony export */   projectMaker: () => (/* binding */ projectMaker)\n/* harmony export */ });\nconst dataTaskMaker = function(inputName,inputDescription,inputDate,inputPriority)\n{\n    let taskName = inputName;\n    let taskDescription = inputDescription;\n    let taskDate = inputDate;\n    let taskPriority = inputPriority\n    let isComplete = false;\n\n    const getTaskName = ()=>{return taskName}\n    const getTaskDescription = ()=>{return taskDescription}\n    const getTaskDate = ()=>{return taskDate}\n    const getTaskPriority = ()=>{return taskPriority}\n    const isTaskCompleted = ()=>{return isComplete}\n\n    return{getTaskName,getTaskDescription,getTaskDate,getTaskPriority,isTaskCompleted}\n}\n\nconst projectMaker = function(inputName)\n{\n    let projectName = inputName;\n    let tasks = [];\n\n    const getName = ()=>{return projectName}\n    const getTasks = ()=>{return tasks}\n\n    return{getName,getTasks}\n}\n\n\n\n//# sourceURL=webpack://odin-notepad/./src/objects.js?");
+
 /***/ })
 
 /******/ 	});
@@ -100,7 +120,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/domhandler.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/initial.js");
 /******/ 	
 /******/ })()
 ;
