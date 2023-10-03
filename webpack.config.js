@@ -5,10 +5,12 @@ module.exports =
     mode: 'development',
     entry:
     {
+        initial:'./src/initial.js',
+        domhandler:'./src/domhandler.js',
         index: './src/index.js',
         objects:'./src/objects.js',
-        domhandler:'./src/domhandler.js',
-        generalFunctions:'./src/generalFunctions.js'
+        generalFunctions:'./src/generalFunctions.js',
+        
 
     },
     output:
