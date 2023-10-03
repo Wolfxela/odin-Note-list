@@ -1,5 +1,6 @@
 import { generalFuncModule as module } from "./generalFunctions";
-import { programData, taskHandler } from "./index";
+import { programData} from "./index";
+import { domTaskHandler } from "./domTaskHandler";
 
 const domProjectHandler = (function(){
 
@@ -12,7 +13,7 @@ const domProjectHandler = (function(){
 
     const deleteProject = function(ProjectId)
     {
-        Projects.splice(ProjectId,id);
+        Projects.splice(ProjectId,1);
         displayProjects(Projects)
 
     }
@@ -26,8 +27,8 @@ const domProjectHandler = (function(){
     const displayProjects = function()
     {
         let ProjectDiv;
-        clearDom(projectHolder,".Project")
-        clearDom(mainProjectHolder,".Project")
+        module.clearDom(projectHolder,".Project")
+        module.clearDom(mainProjectHolder,".Project")
         for(let i = 0; i<Projects.length;i++)
         {
             if(i < 3)
@@ -43,6 +44,7 @@ const domProjectHandler = (function(){
             ProjectDiv.addEventListener("click",function()
             {
                 programData.setProject(Projects[i])
+                programData.setTaskStatus(true)
                 domTaskHandler.displayTasks()        
             })
         }
@@ -57,74 +59,7 @@ const domProjectHandler = (function(){
 })();
 
 
-const domTaskHandler = (function()
-{
-    const taskDisplay = document.querySelector('.tasks')
-
-    const displayTasks = function()
-    {
-        clearDom(taskDisplay,'.task')
-
-        const tasks = programData.getCurrentProject().getTasks()
-
-        for(let i = 0; i< tasks.length;i++)
-        {
-           taskMaker(taskDisplay,tasks[i])
-           
-        }
-        taskSorter(taskDisplay)
-    };
-    
-    return{displayTasks}
-})();
-
-const taskMaker = function(taskDisplay,tasks)
-{
-           const taskDiv = module.insertElement('div','task','',taskDisplay)
-           module.insertElement('div',tasks.getTaskPriority()+'Priority','',taskDiv)
-           const taskContentDiv = module.insertElement('div','taskContent','',taskDiv)
-           const checkMark = module.insertElement('div','checkMark','',taskContentDiv)
-           module.insertElement('div','taskTitle',tasks.getTaskName(),taskContentDiv)
-           module.insertElement('div','taskTime',tasks.getTaskDate(),taskContentDiv)
-           taskDisplay.appendChild(taskDiv)
-           checkMark.addEventListener('click',function()
-           {
-
-            taskHandler.deleteTask(Array.from(taskDisplay.children).indexOf(taskDiv),programData.getCurrentProject().getTasks())
-            taskDisplay.removeChild(taskDiv)
 
 
-           })
-}
-const taskSorter = function(taskArray)
-{
-       
-        const highPriority = taskArray.querySelectorAll('.highPriority')
-        for(let i = 0; i<highPriority.length;i++)
-        { 
-            console.log("hawo")
-            taskArray.appendChild(highPriority[i].parentElement)
-        }
-        const mediumPriority = taskArray.querySelectorAll('.mediumPriority')
-        for(let i = 0; i<mediumPriority.length;i++)
-        {
-            taskArray.appendChild(mediumPriority[i].parentElement)
-        }
-        const lowPriority = taskArray.querySelectorAll('.lowPriority')
-        for(let i = 0; i<lowPriority.length;i++)
-        {
-            taskArray.appendChild(lowPriority[i].parentElement)
-        }
-}
 
-const clearDom = function(element,inputClass)
-{
-       const elementArray = element.querySelectorAll(inputClass)
-       for(let i = 0; i<elementArray.length;i++)
-       {
-        element.removeChild(elementArray[i])
-       }
-}
-
-
-export{domProjectHandler,domTaskHandler}
+export{domProjectHandler}

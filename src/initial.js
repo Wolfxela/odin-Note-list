@@ -1,6 +1,8 @@
-import { domProjectHandler,domTaskHandler } from "./domhandler"
+import { domProjectHandler } from "./domhandler"
 import { taskHandler, programData } from "./index"
 import { projectMaker, dataTaskMaker } from "./objects"
+import { domTaskHandler } from "./domTaskHandler"
+import { domNoteHandler } from "./domNoteHandler"
 
 const addMainProjects = function()
 {
@@ -12,31 +14,48 @@ const addMainProjects = function()
     domProjectHandler.addProject(monthlyProject)
 
     programData.setProject(todayProject)
-    makeTask("do dishes","date","high")
-    makeTask("do grab trash","date","medium")
-    makeTask("do homework","date","high")
-    makeTask("buy cat food","date","high")
-    makeTask("clean your room","date","low")
-    makeTask("go touch grass","date","low")
+     makeTask("do dishes","date","high")
+     makeTask("do grab trash","date","medium")
+     makeTask("do homework","date","high")
+     makeTask("buy cat food","date","high")
+     makeTask("clean your room","date","low")
+     makeTask("go touch grass","date","low")
 }
 const initialiseApp = function()
 {
 
     const btnProject = document.querySelector('.addProjectBtn')
     const btnTask = document.querySelector('.addTaskBtn')
+    const btnNotes = document.querySelector('.notes')
     //how we should add the project and the tasks
     btnProject.addEventListener("click",function()
     {
-
+       
         makeProject()
 
     });
     btnTask.addEventListener("click",function()
     {
 
-        makeTask("name","date","high")
+        if(programData.getTaskStatus() === true)
+        {
+            makeTask("name","date","high")
+        }
+        else
+        {
+            const task = dataTaskMaker('','hello i am a fox note ','','')
+            taskHandler.setTask(task,programData.getCurrentProject().getTasks())
+            domNoteHandler.displayNotes(programData.getCurrentProject())
+        }
+        
 
     });
+    btnNotes.addEventListener("click",function()
+    {
+        programData.setTaskStatus(false)
+        programData.setProject(programData.getNoteProject())
+        domNoteHandler.displayNotes()
+    })
     
     
 }

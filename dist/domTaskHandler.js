@@ -10,6 +10,26 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/domTaskHandler.js":
+/*!*******************************!*\
+  !*** ./src/domTaskHandler.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   domTaskHandler: () => (/* binding */ domTaskHandler)\n/* harmony export */ });\n/* harmony import */ var _generalFunctions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./generalFunctions */ \"./src/generalFunctions.js\");\n/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ \"./src/index.js\");\n\n\nconst taskMaker = function(taskDisplay,tasks)\n{\n           const taskDiv = _generalFunctions__WEBPACK_IMPORTED_MODULE_0__.generalFuncModule.insertElement('div','task','',taskDisplay)\n           _generalFunctions__WEBPACK_IMPORTED_MODULE_0__.generalFuncModule.insertElement('div',tasks.getTaskPriority()+'Priority','',taskDiv)\n           const taskContentDiv = _generalFunctions__WEBPACK_IMPORTED_MODULE_0__.generalFuncModule.insertElement('div','taskContent','',taskDiv)\n           const checkMark = _generalFunctions__WEBPACK_IMPORTED_MODULE_0__.generalFuncModule.insertElement('div','checkMark','',taskContentDiv)\n           _generalFunctions__WEBPACK_IMPORTED_MODULE_0__.generalFuncModule.insertElement('div','taskTitle',tasks.getTaskName(),taskContentDiv)\n           _generalFunctions__WEBPACK_IMPORTED_MODULE_0__.generalFuncModule.insertElement('div','taskTime',tasks.getTaskDate(),taskContentDiv)\n           taskDisplay.appendChild(taskDiv)\n\n           checkMark.addEventListener('click',function()\n           {\n            _index__WEBPACK_IMPORTED_MODULE_1__.taskHandler.deleteTask(Array.from(taskDisplay.children).indexOf(taskDiv),_index__WEBPACK_IMPORTED_MODULE_1__.programData.getCurrentProject().getTasks())\n            taskDisplay.removeChild(taskDiv)\n           })\n}\n\nconst taskSorter = function(taskArray)\n{\n       \n        const highPriority = taskArray.querySelectorAll('.highPriority')\n        const mediumPriority = taskArray.querySelectorAll('.mediumPriority')\n        const lowPriority = taskArray.querySelectorAll('.lowPriority')\n        for(let i = 0; i<highPriority.length;i++)\n        { \n            taskArray.appendChild(highPriority[i].parentElement)\n        }\n        for(let i = 0; i<mediumPriority.length;i++)\n        {\n            taskArray.appendChild(mediumPriority[i].parentElement)\n        }\n        for(let i = 0; i<lowPriority.length;i++)\n        {\n            taskArray.appendChild(lowPriority[i].parentElement)\n        }\n}\n\nconst domTaskHandler = (function()\n{\n    const taskDisplay = document.querySelector('.tasks')\n\n    const displayTasks = function()\n    {\n        taskDisplay.style.flexDirection = \"column\";\n        taskDisplay.style.justifyContent = \"flex-start\";\n        taskDisplay.style.flexWrap = \"nowrap\";\n        _generalFunctions__WEBPACK_IMPORTED_MODULE_0__.generalFuncModule.clearDom(taskDisplay,'.task')\n        _generalFunctions__WEBPACK_IMPORTED_MODULE_0__.generalFuncModule.clearDom(taskDisplay,'.note')\n\n        const tasks = _index__WEBPACK_IMPORTED_MODULE_1__.programData.getCurrentProject().getTasks()\n\n        for(let i = 0; i< tasks.length;i++)\n        {\n           taskMaker(taskDisplay,tasks[i])\n           \n        }\n        taskSorter(taskDisplay)\n    };\n    \n    return{displayTasks}\n})();\n\n\n\n//# sourceURL=webpack://odin-notepad/./src/domTaskHandler.js?");
+
+/***/ }),
+
+/***/ "./src/generalFunctions.js":
+/*!*********************************!*\
+  !*** ./src/generalFunctions.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   generalFuncModule: () => (/* binding */ generalFuncModule)\n/* harmony export */ });\nconst generalFuncModule = (function()\n{\n    const bodyElem = document.body;\n    const doc = document;\n\n\n\n    const insertElement = function(elementType,elementClass,elementContent,elementParrent,elementImgSrc)\n    {\n       let element = doc.createElement(elementType);\n        element.className = elementClass;\n        element.textContent = elementContent\n        if(elementType === \"img\")\n        {\n            element.src = elementImgSrc;\n        }\n        elementParrent.appendChild(element)\n        return element\n        \n    }\n    const clearDom = function(parrent,inputClass)\n{\n       const elementArray = parrent.querySelectorAll(inputClass)\n       for(let i = 0; i<elementArray.length;i++)\n       {\n        parrent.removeChild(elementArray[i])\n       }\n}\n    return{insertElement,clearDom}\n})();\n\n\n\n//# sourceURL=webpack://odin-notepad/./src/generalFunctions.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -90,7 +110,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/domTaskHandler.js");
 /******/ 	
 /******/ })()
 ;

@@ -142,8 +142,11 @@ body
     padding-top: 50px;
     display: flex;
     gap: 1vh;
-    flex-direction: column;
     overflow-y: auto;
+
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 .task
 {
@@ -230,4 +233,35 @@ body
     width: 95px;
     height: 95px;
     font-size: 100px;
+}
+.notes:hover
+{
+    color: gold;
+}
+.note
+{
+    font-size: max(2vh,10px); ;
+    background-color: #BAE8E8;
+    width: 30%;
+    height: 30%;
+}
+.deleteNote
+{
+    width: 20px;
+    height: 20px;
+    color: rgb(0, 0, 0);
+    position: relative;
+    bottom: 2vh;
+    right: -20vw;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+}
+.deleteNote:hover
+{
+    border-color: var(--light-blue);
 }

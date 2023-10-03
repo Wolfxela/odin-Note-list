@@ -10,6 +10,8 @@ module.exports =
         index: './src/index.js',
         objects:'./src/objects.js',
         generalFunctions:'./src/generalFunctions.js',
+        domTaskHandler:'./src/domTaskHandler.js',
+        domNoteHandler:'./src/domNoteHandler.js'
         
 
     },

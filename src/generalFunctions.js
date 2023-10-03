@@ -18,7 +18,15 @@ const generalFuncModule = (function()
         return element
         
     }
-    return{insertElement}
+    const clearDom = function(parrent,inputClass)
+{
+       const elementArray = parrent.querySelectorAll(inputClass)
+       for(let i = 0; i<elementArray.length;i++)
+       {
+        parrent.removeChild(elementArray[i])
+       }
+}
+    return{insertElement,clearDom}
 })();
 
 export {generalFuncModule}
