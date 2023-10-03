@@ -10,7 +10,8 @@
     <script src="./index.js" defer></script>
     <script src="./objects.js" defer></script>
     <script src="./domTaskHandler.js" defer></script>
-    <script src="domNoteHandler.js" defer></script>
+    <script src="./domNoteHandler.js" defer></script>
+    <script src="./domFormHandler.js" defer></script>
     
     
 
@@ -54,6 +55,84 @@
             <div class="addTaskBtn">+</div>
 
         </div>
+        <form action="" class="taskForm" onsubmit="event.preventDefault()">
+            <div class="inputDiv">
+
+                <label for="get_Title">Title!</label>
+                <input type="text" class="getTitle" name="get_Title" id="get_Title" maxlength="20" placeholder="do dishes..." required>
+
+            </div>
+            <div class="inputDiv">
+
+                <label for="get_Description">Describe your task!</label>
+                <textarea name="" class="getDescription" id="get_Description" rows="10" maxlength="200">today i will do the dishes:3</textarea>
+
+            </div>
+
+            <div class="inputDiv">
+
+                <label for="get_Date">Time to finish!</label>
+                <input type="date" name="" class="getDate" id="get_Date" required>
+
+            </div>
+
+            <div class="inputDiv">
+                <label for="get_Priority">Priority</label>
+                <select name="Priority" class="getPriority" id="get_Priority" required>
+
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low" selected>Low</option>
+
+                </select>
+            </div>
+            <button class="taskSubmit" type="submit">Make task</button>
+           
+            
+        </form>
+        <form action="" class="noteForm" onsubmit="event.preventDefault()">
+
+            <div class="inputDiv">
+
+                <label for="get_Description">Describe your note!</label>
+                <textarea name="" class="getNoteDescription" id="get_Description" rows="10" maxlength="200">today i pet a dog:3</textarea>
+
+            </div>
+            <button class="submitNotes" type="submit">Make note</button>
+           
+            
+        </form>
+
+        <form class="projectForm" action="" onsubmit="event.preventDefault()">
+        
+            <div class="inputDiv">
+                
+                <label for="get_Title">Project title!</label>
+                <input type="text" name="" class="getProjectTitle" id="get_Title" maxlength="20" required>
+                
+
+            </div>
+
+            <button class="submitNotes" type="submit">Make Project</button>
+        
+        </form>
+
+        <!-- <div class="taskdetails">
+
+            <div class="topDetails">
+
+                <div class="taskName">Name</div>
+                <div class="taskDescription">We be doin foxes</div>
+
+            </div>
+            <div class="bottomDetails">
+
+                <div class="taskDate">Date:10 NOV 2003</div>
+                <div class="taskPriority">Priority:Low</div>
+
+            </div>
+
+        </div> -->
 
     </div>
 </body>
