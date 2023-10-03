@@ -10,6 +10,26 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/domNoteHandler.js":
+/*!*******************************!*\
+  !*** ./src/domNoteHandler.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   domNoteHandler: () => (/* binding */ domNoteHandler)\n/* harmony export */ });\n/* harmony import */ var _generalFunctions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./generalFunctions */ \"./src/generalFunctions.js\");\n/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ \"./src/index.js\");\n\n\n\n\nconst domNoteHandler = (function()\n{\n    const taskDisplay = document.querySelector('.tasks')\n\n    \n\n    const displayNotes = function()\n    {\n        taskDisplay.style.flexDirection = \"row\";\n        taskDisplay.style.justifyContent = \"center\";\n        taskDisplay.style.flexWrap = \"wrap\";\n        _generalFunctions__WEBPACK_IMPORTED_MODULE_0__.generalFuncModule.clearDom(taskDisplay,'.task')\n        _generalFunctions__WEBPACK_IMPORTED_MODULE_0__.generalFuncModule.clearDom(taskDisplay,'.note')\n\n        const tasks = _index__WEBPACK_IMPORTED_MODULE_1__.programData.getNoteProject().getTasks()\n\n        for(let i = 0; i< tasks.length;i++)\n        {\n            noteMaker(taskDisplay,tasks[i])\n           \n        }\n    };\n    \n    return{displayNotes}\n})();\n\nconst noteMaker = function(taskDisplay,tasks)\n{\n           const noteDiv = _generalFunctions__WEBPACK_IMPORTED_MODULE_0__.generalFuncModule.insertElement('div','note',tasks.getTaskDescription(),taskDisplay)\n           const deleteNote = _generalFunctions__WEBPACK_IMPORTED_MODULE_0__.generalFuncModule.insertElement('div','deleteNote','X',noteDiv)\n\n\n           deleteNote.addEventListener('click',function()\n           {\n            _index__WEBPACK_IMPORTED_MODULE_1__.taskHandler.deleteTask(Array.from(taskDisplay.children).indexOf(noteDiv),_index__WEBPACK_IMPORTED_MODULE_1__.programData.getCurrentProject().getTasks())\n            taskDisplay.removeChild(noteDiv)\n           })\n}\n\n\n\n//# sourceURL=webpack://odin-notepad/./src/domNoteHandler.js?");
+
+/***/ }),
+
+/***/ "./src/generalFunctions.js":
+/*!*********************************!*\
+  !*** ./src/generalFunctions.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   generalFuncModule: () => (/* binding */ generalFuncModule)\n/* harmony export */ });\nconst generalFuncModule = (function()\n{\n    const bodyElem = document.body;\n    const doc = document;\n\n\n\n    const insertElement = function(elementType,elementClass,elementContent,elementParrent,elementImgSrc)\n    {\n       let element = doc.createElement(elementType);\n        element.className = elementClass;\n        element.textContent = elementContent\n        if(elementType === \"img\")\n        {\n            element.src = elementImgSrc;\n        }\n        elementParrent.appendChild(element)\n        return element\n        \n    }\n    const clearDom = function(parrent,inputClass)\n{\n       const elementArray = parrent.querySelectorAll(inputClass)\n       for(let i = 0; i<elementArray.length;i++)\n       {\n        parrent.removeChild(elementArray[i])\n       }\n}\n    return{insertElement,clearDom}\n})();\n\n\n\n//# sourceURL=webpack://odin-notepad/./src/generalFunctions.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -90,7 +110,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/domNoteHandler.js");
 /******/ 	
 /******/ })()
 ;
