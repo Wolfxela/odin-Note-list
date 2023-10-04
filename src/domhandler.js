@@ -4,7 +4,7 @@ import { domTaskHandler } from "./domTaskHandler";
 
 const domProjectHandler = (function(){
 
-    
+     //comment
     let Projects = [];
     const page = document.querySelector('.content')
     const projectHolder = page.querySelector(".projectHolder")

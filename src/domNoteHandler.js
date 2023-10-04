@@ -10,6 +10,7 @@ const domNoteHandler = (function()
 
     const displayNotes = function()
     {
+         //comment
         taskDisplay.style.flexDirection = "row";
         taskDisplay.style.justifyContent = "center";
         taskDisplay.style.flexWrap = "wrap";

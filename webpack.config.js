@@ -12,7 +12,6 @@ module.exports =
         generalFunctions:'./src/generalFunctions.js',
         domTaskHandler:'./src/domTaskHandler.js',
         domNoteHandler:'./src/domNoteHandler.js',
-        domFormHandler:'./src/domFormHandler.js'
         
 
     },

@@ -9,6 +9,7 @@ const taskHandler = (function()
 
 const programData = (function()
 {
+     //comment
     let currentProject;
     let areTasksDisplaying = true;
     let notesProject = projectMaker("Notes");

@@ -8,6 +8,8 @@ import format from "date-fns/format"
 
 
 
+
+
 const addMainProjects = function()
 {
     const todayProject = projectMaker("Today")
@@ -24,6 +26,13 @@ const addMainProjects = function()
      makeTask("buy cat food","","10 Nov 2003","high")
      makeTask("clean your room","","30 Nov 2005","low")
      makeTask("go touch grass","","50;) Nov 2004","low")
+    programData.setProject(weeklyProject)
+     makeTask("do dishes","","01 Nov 2009","high")
+    programData.setProject(monthlyProject)
+    makeTask("go touch grass","","50;) Nov 2004","low")
+    programData.setProject(todayProject)
+     
+    
     programData.setProject(weeklyProject)
      makeTask("do dishes","","01 Nov 2009","high")
     programData.setProject(monthlyProject)
@@ -131,10 +140,10 @@ const storageInit = function()
     }
     else
     {
+        console.log("hello")
         let Projects = JSON.parse(localStorage.getItem("Projects"))
-        for(let i = 0;i < Projects.length;i++)
+        for(let i = 0;i < Projects.length ;i++)
         {
-            console.log(Projects[i].tasks)
             let project = projectMaker(Projects[i].projectName)
             let tasks = Projects[i].tasks
             for(let i = 0;i < tasks.length;i++)
