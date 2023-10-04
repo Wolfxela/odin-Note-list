@@ -1,11 +1,9 @@
 const dataTaskMaker = function(inputName,inputDescription,inputDate,inputPriority)
 {
-    //comment
     let taskName = inputName;
     let taskDescription = inputDescription;
     let taskDate = inputDate;
     let taskPriority = inputPriority
-    let isComplete = false;
 
     const getTaskName = ()=>{return taskName}
     const getTaskDescription = ()=>{return taskDescription}
@@ -13,7 +11,7 @@ const dataTaskMaker = function(inputName,inputDescription,inputDate,inputPriorit
     const getTaskPriority = ()=>{return taskPriority}
     const isTaskCompleted = ()=>{return isComplete}
 
-    return{getTaskName,getTaskDescription,getTaskDate,getTaskPriority,isTaskCompleted}
+    return{getTaskName,getTaskDescription,getTaskDate,getTaskPriority,isTaskCompleted,taskName,taskDescription,taskDate,taskPriority}
 }
 
 const projectMaker = function(inputName)
@@ -24,7 +22,7 @@ const projectMaker = function(inputName)
     const getName = ()=>{return projectName}
     const getTasks = ()=>{return tasks}
 
-    return{getName,getTasks}
+    return{getName,getTasks,tasks,projectName}
 }
 
 export{dataTaskMaker,projectMaker}

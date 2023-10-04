@@ -6,9 +6,10 @@ import { programData,taskHandler } from "./index"
 import { dataTaskMaker } from "./objects"
 import format from "date-fns/format"
 
+
+
 const addMainProjects = function()
 {
-     //comment
     const todayProject = projectMaker("Today")
     const weeklyProject = projectMaker("Weekly")
     const monthlyProject = projectMaker("Monthly")
@@ -23,6 +24,13 @@ const addMainProjects = function()
      makeTask("buy cat food","","10 Nov 2003","high")
      makeTask("clean your room","","30 Nov 2005","low")
      makeTask("go touch grass","","50;) Nov 2004","low")
+    programData.setProject(weeklyProject)
+     makeTask("do dishes","","01 Nov 2009","high")
+    programData.setProject(monthlyProject)
+    makeTask("go touch grass","","50;) Nov 2004","low")
+    programData.setProject(todayProject)
+     
+    
 }
 const initialiseApp = function()
 {
@@ -114,6 +122,81 @@ const domFormHandler = (function()
     }
     return{setFormBtns}
 })();
-addMainProjects()
+
+const storageInit = function()
+{    
+    if (!localStorage.getItem("Projects"))
+    {
+        addMainProjects()
+    }
+    else
+    {
+        console.log("hello")
+        let Projects = JSON.parse(localStorage.getItem("Projects"))
+        for(let i = 0;i < Projects.length ;i++)
+        {
+            let project = projectMaker(Projects[i].projectName)
+            let tasks = Projects[i].tasks
+            for(let i = 0;i < tasks.length;i++)
+            {
+                let task = dataTaskMaker(tasks[i].taskName,tasks[i].taskDescription,tasks[i].taskDate,tasks[i].taskPriority)
+                taskHandler.setTask(task,project.getTasks())
+            }
+            domProjectHandler.addProject(project)
+            
+
+        }
+        
+    }
+}
+
+function storageAvailable(type) {
+    let storage;
+    try {
+      storage = window[type];
+      const x = "__storage_test__";
+      storage.setItem(x, x);
+      storage.removeItem(x);
+      return true;
+    } catch (e) {
+      return (
+        e instanceof DOMException &&
+        // everything except Firefox
+        (e.code === 22 ||
+          // Firefox
+          e.code === 1014 ||
+          // test name field too, because code might not be present
+          // everything except Firefox
+          e.name === "QuotaExceededError" ||
+          // Firefox
+          e.name === "NS_ERROR_DOM_QUOTA_REACHED") &&
+        // acknowledge QuotaExceededError only if there's something already stored
+        storage &&
+        storage.length !== 0
+      );
+    }
+  }
+  if (storageAvailable("localStorage"))
+  {
+    storageInit()
+  }
+  else
+  {
+
+  }
+  function returnProjects() {
+
+    var values = [],
+    keys = Object.keys(localStorage);
+
+    for(let i = 0;i<keys.length;i++)
+    {
+        values.push( localStorage.getItem(keys[i]) );
+    }
+
+    return values[0];
+}
 initialiseApp()
 domFormHandler.setFormBtns()
+
+
