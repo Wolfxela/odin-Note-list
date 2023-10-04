@@ -1,26 +1,7 @@
 import { generalFuncModule as module } from "./generalFunctions"
 import { programData,taskHandler } from "./index"
-import { dataTaskMaker } from "./objects"
-const taskMaker = function(taskDisplay,tasks)
-{
-           const taskDiv = module.insertElement('div','task','',taskDisplay)
-           module.insertElement('div',tasks.getTaskPriority()+'Priority','',taskDiv)
-           const taskContentDiv = module.insertElement('div','taskContent','',taskDiv)
-           const checkMark = module.insertElement('div','checkMark','',taskContentDiv)
-           const taskTitle = module.insertElement('div','taskTitle',tasks.getTaskName(),taskContentDiv)
-           module.insertElement('div','taskTime',tasks.getTaskDate(),taskContentDiv)
-           taskDisplay.appendChild(taskDiv)
+import { dataTaskMaker, projectMaker,test1 } from "./objects"
 
-           checkMark.addEventListener('click',function()
-           {
-            taskHandler.deleteTask(Array.from(taskDisplay.children).indexOf(taskDiv),programData.getCurrentProject().getTasks())
-            taskDisplay.removeChild(taskDiv)
-           })
-           taskTitle.addEventListener("click",function()
-           {
-            taskDetailMaker(tasks.getTaskName(),tasks.getTaskDescription(),tasks.getTaskDate(),tasks.getTaskPriority())
-           })
-}
 
 const taskSorter = function(taskArray)
 {
@@ -57,11 +38,33 @@ const taskDetailMaker = function(name,description,date,priority)
     })
 
 }
+const checkLocalProjects = function(projectArray,project)
+{
+    let isProjectAlreadyIn = false;
+    if(projectArray.length == 0)
+    {
+        projectArray.push(project)
+    }
+    for(let i = 0; i < projectArray.length;i++)
+    {
+        if(project.projectName == projectArray[i].projectName)
+        {
+            projectArray[i] = project
+            isProjectAlreadyIn = true
+
+        }
+    }
+    if(isProjectAlreadyIn == false)
+    {
+        console.log("hello")
+        projectArray.push(project)
+    }
+}
 
 const domTaskHandler = (function()
 {
+    let localProjects = [];
     const taskDisplay = document.querySelector('.tasks')
-
     const displayTasks = function()
     {
         taskDisplay.style.flexDirection = "column";
@@ -72,13 +75,52 @@ const domTaskHandler = (function()
 
         const tasks = programData.getCurrentProject().getTasks()
 
+
         for(let i = 0; i< tasks.length;i++)
         {
            taskMaker(taskDisplay,tasks[i])
            
         }
         taskSorter(taskDisplay)
+
+        if (!localStorage.getItem("Projects"))
+        { 
+            localStorage.setItem("Projects",JSON.stringify(localProjects))
+            JSON.parse(localStorage.getItem("Projects"))
+            localProjects = JSON.parse(localStorage.getItem("Projects"))
+            checkLocalProjects(localProjects,programData.getCurrentProject());
+        }
+        else
+        {
+            localProjects = JSON.parse(localStorage.getItem("Projects"))
+            checkLocalProjects(localProjects,programData.getCurrentProject());
+            localStorage.setItem("Projects",JSON.stringify(localProjects))
+        }
+        
+
+
     };
+    const taskMaker = function(taskDisplay,tasks)
+        {
+           const taskDiv = module.insertElement('div','task','',taskDisplay)
+           module.insertElement('div',tasks.getTaskPriority()+'Priority','',taskDiv)
+           const taskContentDiv = module.insertElement('div','taskContent','',taskDiv)
+           const checkMark = module.insertElement('div','checkMark','',taskContentDiv)
+           const taskTitle = module.insertElement('div','taskTitle',tasks.getTaskName(),taskContentDiv)
+           module.insertElement('div','taskTime',tasks.getTaskDate(),taskContentDiv)
+           taskDisplay.appendChild(taskDiv)
+
+           checkMark.addEventListener('click',function()
+           {
+            taskHandler.deleteTask(Array.from(taskDisplay.children).indexOf(taskDiv),programData.getCurrentProject().getTasks())
+            taskDisplay.removeChild(taskDiv)
+            displayTasks()
+           })
+           taskTitle.addEventListener("click",function()
+           {
+            taskDetailMaker(tasks.getTaskName(),tasks.getTaskDescription(),tasks.getTaskDate(),tasks.getTaskPriority())
+           })
+        }
     
     return{displayTasks}
 })();
@@ -90,5 +132,4 @@ const makeTask = function(inputname,inputDescription,inputDate,inputPriority)
         taskHandler.setTask(task,programData.getCurrentProject().getTasks())
         domTaskHandler.displayTasks(programData.getCurrentProject())
 }
-
 export{domTaskHandler,makeTask}
