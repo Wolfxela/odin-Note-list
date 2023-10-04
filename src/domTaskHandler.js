@@ -2,8 +2,6 @@ import { generalFuncModule as module } from "./generalFunctions"
 import { programData,taskHandler } from "./index"
 import { dataTaskMaker, projectMaker,test1 } from "./objects"
 
-import { dataTaskMaker, projectMaker,test1 } from "./objects"
-
 
 const taskSorter = function(taskArray)
 {
@@ -62,32 +60,8 @@ const checkLocalProjects = function(projectArray,project)
         projectArray.push(project)
     }
 }
-const checkLocalProjects = function(projectArray,project)
-{
-    let isProjectAlreadyIn = false;
-    if(projectArray.length == 0)
-    {
-        projectArray.push(project)
-        console.log(projectArray[0].getName())
-    }
-    for(let i = 0; i < projectArray.length;i++)
-    {
-        if(project.projectName == projectArray[i].projectName)
-        {
-            projectArray[i] = project
-            isProjectAlreadyIn = true
-
-        }
-    }
-    if(isProjectAlreadyIn == false)
-    {
-        projectArray.push(project)
-    }
-}
-
 const domTaskHandler = (function()
 {
-    let localProjects = [];
     let localProjects = [];
     const taskDisplay = document.querySelector('.tasks')
     const displayTasks = function()
@@ -160,31 +134,6 @@ const domTaskHandler = (function()
             localProjects = JSON.parse(localStorage.getItem("Projects"))
             checkLocalProjects(localProjects,programData.getCurrentProject());
             localStorage.setItem("Projects",JSON.stringify(localProjects))
-        }
-        
-
-
-    };
-    const taskMaker = function(taskDisplay,tasks)
-        {
-           const taskDiv = module.insertElement('div','task','',taskDisplay)
-           module.insertElement('div',tasks.getTaskPriority()+'Priority','',taskDiv)
-           const taskContentDiv = module.insertElement('div','taskContent','',taskDiv)
-           const checkMark = module.insertElement('div','checkMark','',taskContentDiv)
-           const taskTitle = module.insertElement('div','taskTitle',tasks.getTaskName(),taskContentDiv)
-           module.insertElement('div','taskTime',tasks.getTaskDate(),taskContentDiv)
-           taskDisplay.appendChild(taskDiv)
-
-           checkMark.addEventListener('click',function()
-           {
-            taskHandler.deleteTask(Array.from(taskDisplay.children).indexOf(taskDiv),programData.getCurrentProject().getTasks())
-            taskDisplay.removeChild(taskDiv)
-            displayTasks()
-           })
-           taskTitle.addEventListener("click",function()
-           {
-            taskDetailMaker(tasks.getTaskName(),tasks.getTaskDescription(),tasks.getTaskDate(),tasks.getTaskPriority())
-           })
         }
     
     return{displayTasks}
