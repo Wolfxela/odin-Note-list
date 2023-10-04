@@ -1,7 +1,6 @@
 import { generalFuncModule as module } from "./generalFunctions";
 import { programData} from "./index";
 import { domTaskHandler } from "./domTaskHandler";
-import { makeTask } from "./domTaskHandler";
 
 const domProjectHandler = (function(){
 
