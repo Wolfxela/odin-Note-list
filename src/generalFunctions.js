@@ -7,6 +7,7 @@ const generalFuncModule = (function()
 
     const insertElement = function(elementType,elementClass,elementContent,elementParrent,elementImgSrc)
     {
+         //comment
        let element = doc.createElement(elementType);
         element.className = elementClass;
         element.textContent = elementContent
