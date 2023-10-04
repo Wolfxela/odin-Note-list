@@ -44,6 +44,7 @@ const checkLocalProjects = function(projectArray,project)
     if(projectArray.length == 0)
     {
         projectArray.push(project)
+        console.log(projectArray[0].getName())
     }
     for(let i = 0; i < projectArray.length;i++)
     {
@@ -56,10 +57,10 @@ const checkLocalProjects = function(projectArray,project)
     }
     if(isProjectAlreadyIn == false)
     {
-        console.log("hello")
         projectArray.push(project)
     }
 }
+
 const domTaskHandler = (function()
 {
     let localProjects = [];
@@ -73,7 +74,6 @@ const domTaskHandler = (function()
         module.clearDom(taskDisplay,'.note')
 
         const tasks = programData.getCurrentProject().getTasks()
-
 
 
         for(let i = 0; i< tasks.length;i++)
@@ -120,20 +120,6 @@ const domTaskHandler = (function()
            {
             taskDetailMaker(tasks.getTaskName(),tasks.getTaskDescription(),tasks.getTaskDate(),tasks.getTaskPriority())
            })
-        }
-
-        if (!localStorage.getItem("Projects"))
-        { 
-            localStorage.setItem("Projects",JSON.stringify(localProjects))
-            JSON.parse(localStorage.getItem("Projects"))
-            localProjects = JSON.parse(localStorage.getItem("Projects"))
-            checkLocalProjects(localProjects,programData.getCurrentProject());
-        }
-        else
-        {
-            localProjects = JSON.parse(localStorage.getItem("Projects"))
-            checkLocalProjects(localProjects,programData.getCurrentProject());
-            localStorage.setItem("Projects",JSON.stringify(localProjects))
         }
     
     return{displayTasks}

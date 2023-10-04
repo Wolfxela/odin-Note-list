@@ -8,8 +8,6 @@ import format from "date-fns/format"
 
 
 
-
-
 const addMainProjects = function()
 {
     const todayProject = projectMaker("Today")
@@ -26,13 +24,6 @@ const addMainProjects = function()
      makeTask("buy cat food","","10 Nov 2003","high")
      makeTask("clean your room","","30 Nov 2005","low")
      makeTask("go touch grass","","50;) Nov 2004","low")
-    programData.setProject(weeklyProject)
-     makeTask("do dishes","","01 Nov 2009","high")
-    programData.setProject(monthlyProject)
-    makeTask("go touch grass","","50;) Nov 2004","low")
-    programData.setProject(todayProject)
-     
-    
     programData.setProject(weeklyProject)
      makeTask("do dishes","","01 Nov 2009","high")
     programData.setProject(monthlyProject)
@@ -207,5 +198,4 @@ function storageAvailable(type) {
 }
 initialiseApp()
 domFormHandler.setFormBtns()
-
 
